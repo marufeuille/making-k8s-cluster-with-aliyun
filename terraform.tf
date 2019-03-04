@@ -36,5 +36,9 @@ resource "alicloud_cs_kubernetes" "main" {
   pod_cidr = "172.16.1.0/24"
   service_cidr = "172.16.2.0/24"
   enable_ssh = true
-  install_cloud_monitor = true
 }
+
+data "external" "k8s_config" {
+  program = ["bash", "create_k8s_config.sh", "${alicloud_cs_kubernetes.main.id}"]
+}
+
