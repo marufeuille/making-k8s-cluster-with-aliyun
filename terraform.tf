@@ -9,6 +9,11 @@ provider "alicloud" {
   region = "${var.region}"
 }
 
+resource "alicloud_key_pair" "publickey" {
+    key_name = "terraform-publickey"
+    public_key = "${file("./keys/id_rsa.pub")}"
+}
+
 resource "alicloud_vpc" "vpc" {
   name = "terraform-vpc"
   cidr_block = "192.168.1.0/24"
@@ -27,9 +32,9 @@ resource "alicloud_cs_kubernetes" "main" {
   master_instance_types = ["ecs.n4.small"]
   worker_instance_types = ["ecs.n4.small"]
   worker_numbers = [1]
-  key_name = ""
-  pod_cidr = "192.168.1.0/24"
-  service_cidr = "192.168.2.0/24"
+  key_name = "${alicloud_key_pair.publickey.key_name}"
+  pod_cidr = "172.16.1.0/24"
+  service_cidr = "172.16.2.0/24"
   enable_ssh = true
   install_cloud_monitor = true
 }
