@@ -48,6 +48,12 @@ if you don't have key, create key below command.
 ssh-keygen -t rsa
 ```
 
+and copy public key keys dir
+
+```bash
+cp ~/.ssh/id_rsa.pub keys/
+```
+
 3. init terraform
 
 ```bash
