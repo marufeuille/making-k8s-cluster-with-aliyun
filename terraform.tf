@@ -42,8 +42,3 @@ resource "alicloud_cs_kubernetes" "main" {
     project = "my-log00"
   }
 }
-
-data "external" "k8s_config" {
-  program = ["bash", "create_k8s_config.sh", "${alicloud_cs_kubernetes.main.id}"]
-}
-
