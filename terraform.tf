@@ -36,6 +36,11 @@ resource "alicloud_cs_kubernetes" "main" {
   pod_cidr = "172.16.1.0/24"
   service_cidr = "172.16.2.0/24"
   enable_ssh = true
+  kube_config = "/root/.kube/config"
+  log_config = {
+    type = "SLS"
+    project = "my-log00"
+  }
 }
 
 data "external" "k8s_config" {
