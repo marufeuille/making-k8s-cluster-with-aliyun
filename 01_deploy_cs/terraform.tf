@@ -29,9 +29,11 @@ resource "alicloud_cs_kubernetes" "main" {
   name_prefix = "terraform-k8s"
   availability_zone = "${alicloud_vswitch.vsw.availability_zone}"
   new_nat_gateway = true
-  master_instance_types = ["ecs.n4.small"]
-  worker_instance_types = ["ecs.n4.small"]
+  master_instance_types = ["ecs.n4.large"]
+  worker_instance_types = ["ecs.n4.large"]
   worker_numbers = [1]
+  worker_data_disk_category  = "cloud_ssd"
+  worker_data_disk_size = 50
   key_name = "${alicloud_key_pair.publickey.key_name}"
   pod_cidr = "172.16.1.0/24"
   service_cidr = "172.16.2.0/24"
